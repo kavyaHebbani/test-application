@@ -17,8 +17,10 @@ import java.util.List;
 import kavya.sample.testapplication.MainRecyclerViewAdapter;
 import kavya.sample.testapplication.MyApplication;
 import kavya.sample.testapplication.R;
+import kavya.sample.testapplication.network.ApiService;
 import kavya.sample.testapplication.pojo.ImageItem;
 import kavya.sample.testapplication.presenters.CategoriesPresenter;
+import kavya.sample.testapplication.utils.SchedulerProvider;
 
 /**
  * Created by ksreeniv on 06/03/17.
@@ -35,7 +37,9 @@ public class CategoriesFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         MyApplication application = (MyApplication) getActivity().getApplication();
-        mPresenter = new CategoriesPresenter(application.getCategoryDataModel());
+        mPresenter = new CategoriesPresenter(ApiService.getInstance(),
+                                             SchedulerProvider.getInstance(),
+                                             application.getCategoryDataModel());
     }
 
     @Nullable

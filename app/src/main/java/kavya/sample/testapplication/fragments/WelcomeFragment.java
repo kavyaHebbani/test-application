@@ -14,7 +14,9 @@ import android.widget.ImageView;
 
 import kavya.sample.testapplication.MyApplication;
 import kavya.sample.testapplication.R;
+import kavya.sample.testapplication.network.ApiService;
 import kavya.sample.testapplication.presenters.WelcomePresenter;
+import kavya.sample.testapplication.utils.SchedulerProvider;
 
 import static kavya.sample.testapplication.fragments.MyFragmentManager.CATEGORIES_FRAGMENT;
 import static kavya.sample.testapplication.fragments.MyFragmentManager.WELCOME_FRAGMENT;
@@ -33,7 +35,9 @@ public class WelcomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         MyApplication application = (MyApplication) getActivity().getApplication();
-        mPresenter = new WelcomePresenter(application.getCategoryDataModel());
+        mPresenter = new WelcomePresenter(ApiService.getInstance(),
+                                          SchedulerProvider.getInstance(),
+                                          application.getCategoryDataModel());
     }
 
     @Nullable

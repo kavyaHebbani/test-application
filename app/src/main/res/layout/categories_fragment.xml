@@ -5,6 +5,14 @@
               android:layout_height="match_parent"
               android:background="@android:color/white">
 
+    <TextView android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/welcome_title_text"
+              android:text="@string/welcome_new_user_title"
+              android:textSize="@dimen/text_size_big"
+              android:textStyle="bold"
+              android:layout_margin="@dimen/activity_horizontal_margin"/>
+
     <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

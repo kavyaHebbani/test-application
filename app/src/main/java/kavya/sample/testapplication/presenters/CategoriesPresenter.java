@@ -8,6 +8,8 @@ import android.util.Log;
 
 import kavya.sample.categorylibrary.model.ICategoryDataModel;
 import kavya.sample.testapplication.fragments.CategoriesFragment;
+import kavya.sample.testapplication.network.ApiService;
+import kavya.sample.testapplication.utils.ISchedulerProvider;
 
 /**
  * Created by ksreeniv on 06/03/17.
@@ -15,8 +17,10 @@ import kavya.sample.testapplication.fragments.CategoriesFragment;
 
 public class CategoriesPresenter extends BasePresenter {
 
-    public CategoriesPresenter(ICategoryDataModel categoryDataModel) {
-        super(categoryDataModel);
+    public CategoriesPresenter(@NonNull ApiService apiService,
+                               @NonNull ISchedulerProvider schedulerProvider,
+                               @NonNull ICategoryDataModel categoryDataModel) {
+        super(apiService, schedulerProvider, categoryDataModel);
     }
 
     public void bind(@NonNull CategoriesFragment fragment) {

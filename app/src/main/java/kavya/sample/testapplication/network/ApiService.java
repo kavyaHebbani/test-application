@@ -16,7 +16,7 @@ import rx.Observable;
  * Created by ksreeniv on 06/03/17.
  */
 
-public final class ApiService {
+public class ApiService {
 
     private static final String CLIENT_ID = "cc8eda3d67155fda58f8";
 

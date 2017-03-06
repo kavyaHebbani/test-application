@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TestApplication</string>
 
-    <string name="welcome_new_user_title">I am interested in :</string>
+    <string name="welcome_new_user_title">I am interested in:</string>
     <string name="welcome_non_new_user_title">Welcome to our site</string>
     <string name="welcome_button_text">Go to Categories</string>
 

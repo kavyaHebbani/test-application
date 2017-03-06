@@ -18,8 +18,10 @@ import java.util.List;
 import kavya.sample.testapplication.ListingRecyclerViewAdapter;
 import kavya.sample.testapplication.MyApplication;
 import kavya.sample.testapplication.R;
+import kavya.sample.testapplication.network.ApiService;
 import kavya.sample.testapplication.pojo.ImageItem;
 import kavya.sample.testapplication.presenters.ListingPresenter;
+import kavya.sample.testapplication.utils.SchedulerProvider;
 
 /**
  * Created by ksreeniv on 06/03/17.
@@ -36,7 +38,9 @@ public class ListingFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         MyApplication application = (MyApplication) getActivity().getApplication();
-        mPresenter = new ListingPresenter(application.getCategoryDataModel());
+        mPresenter = new ListingPresenter(ApiService.getInstance(),
+                                          SchedulerProvider.getInstance(),
+                                          application.getCategoryDataModel());
     }
 
     @Nullable

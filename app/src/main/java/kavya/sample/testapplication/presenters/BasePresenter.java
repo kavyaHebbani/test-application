@@ -30,9 +30,11 @@ public abstract class BasePresenter {
     @NonNull
     CompositeSubscription mSubscription = new CompositeSubscription();
 
-    BasePresenter(@NonNull ICategoryDataModel categoryDataModel) {
-        mApiService = ApiService.getInstance();
-        mSchedulerProvider = SchedulerProvider.getInstance();
+    BasePresenter(@NonNull ApiService apiService,
+                  @NonNull ISchedulerProvider schedulerProvider,
+                  @NonNull ICategoryDataModel categoryDataModel) {
+        mApiService = apiService;
+        mSchedulerProvider = schedulerProvider;
         mCategoryDataModel = categoryDataModel;
     }
 

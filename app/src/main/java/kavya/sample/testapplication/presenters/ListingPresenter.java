@@ -11,6 +11,8 @@ import android.util.Log;
 import kavya.sample.categorylibrary.model.CategoryDataModel;
 import kavya.sample.categorylibrary.model.ICategoryDataModel;
 import kavya.sample.testapplication.fragments.ListingFragment;
+import kavya.sample.testapplication.network.ApiService;
+import kavya.sample.testapplication.utils.ISchedulerProvider;
 import rx.Observable;
 
 /**
@@ -21,8 +23,10 @@ public class ListingPresenter extends BasePresenter {
 
     public static final String CATEGORY_POSITION = "category_position";
 
-    public ListingPresenter(@NonNull ICategoryDataModel categoryDataModel) {
-        super(categoryDataModel);
+    public ListingPresenter(@NonNull ApiService apiService,
+                            @NonNull ISchedulerProvider schedulerProvider,
+                            @NonNull ICategoryDataModel categoryDataModel) {
+        super(apiService, schedulerProvider, categoryDataModel);
     }
 
     public void bind(@NonNull ListingFragment fragment) {

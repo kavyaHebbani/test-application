@@ -10,7 +10,9 @@ import java.util.List;
 
 import kavya.sample.categorylibrary.model.ICategoryDataModel;
 import kavya.sample.testapplication.fragments.WelcomeFragment;
+import kavya.sample.testapplication.network.ApiService;
 import kavya.sample.testapplication.pojo.ImageItem;
+import kavya.sample.testapplication.utils.ISchedulerProvider;
 
 /**
  * Created by ksreeniv on 06/03/17.
@@ -21,8 +23,10 @@ public class WelcomePresenter extends BasePresenter {
     @NonNull
     private List<ImageItem> mCategoryList = new ArrayList<>();
 
-    public WelcomePresenter(@NonNull ICategoryDataModel categoryDataModel) {
-        super(categoryDataModel);
+    public WelcomePresenter(@NonNull ApiService apiService,
+                            @NonNull ISchedulerProvider schedulerProvider,
+                            @NonNull ICategoryDataModel categoryDataModel) {
+        super(apiService, schedulerProvider, categoryDataModel);
     }
 
     public void bind(@NonNull WelcomeFragment fragment) {
