@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:padding="@dimen/activity_horizontal_margin"
+              android:background="@android:color/white"
+              tools:context="kavya.sample.testapplication.MainActivity">
+
+    <TextView android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/welcome_title_text"
+              android:text="@string/welcome_non_new_user_title"
+              android:textSize="@dimen/text_size_big"
+              android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+    <ImageView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/welcome_image_view"
+            android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+    <Button android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/welcome_button_text"
+            android:text="@string/welcome_button_text"
+            android:textSize="@dimen/text_size_big"
+            android:layout_gravity="bottom"
+            android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+</LinearLayout>
