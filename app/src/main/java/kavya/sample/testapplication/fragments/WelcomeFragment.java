@@ -13,6 +13,9 @@ import android.widget.ImageView;
 
 import kavya.sample.testapplication.R;
 
+import static kavya.sample.testapplication.fragments.MyFragmentManager.CATEGORIES_FRAGMENT;
+import static kavya.sample.testapplication.fragments.MyFragmentManager.WELCOME_FRAGMENT;
+
 /**
  * Created by ksreeniv on 06/03/17.
  */
@@ -39,7 +42,8 @@ public class WelcomeFragment extends Fragment {
 
         Button button = (Button) view.findViewById(R.id.welcome_button_text);
         button.setOnClickListener(v -> {
-            // TODO: open categories list
+            MyFragmentManager manager = new MyFragmentManager(getFragmentManager());
+            manager.goToFragment(WELCOME_FRAGMENT, CATEGORIES_FRAGMENT);
         });
 
         mImageView = (ImageView) view.findViewById(R.id.welcome_image_view);
