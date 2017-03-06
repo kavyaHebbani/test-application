@@ -6,16 +6,12 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import kavya.sample.testapplication.fragments.CategoriesFragment;
-import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by ksreeniv on 06/03/17.
  */
 
 public class CategoriesPresenter extends BasePresenter {
-
-    @NonNull
-    private CompositeSubscription mSubscription = new CompositeSubscription();
 
     public CategoriesPresenter() {
         super();
@@ -29,11 +25,6 @@ public class CategoriesPresenter extends BasePresenter {
                                   .observeOn(mSchedulerProvider.mainThread())
                                   .subscribe(fragment::updateImages,
                                              err -> Log.e(getClass().getName(),
-                                                          "Error updating Data:"
-                                                          + err)));
-    }
-
-    public void unbind() {
-        mSubscription.clear();
+                                                          "Error updating Data:" + err)));
     }
 }

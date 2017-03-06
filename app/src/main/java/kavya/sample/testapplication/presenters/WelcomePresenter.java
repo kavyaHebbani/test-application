@@ -27,9 +27,6 @@ public class WelcomePresenter extends BasePresenter {
     @NonNull
     private ICategoryDataModel mCategoryDataModel;
 
-    @NonNull
-    private CompositeSubscription mSubscription = new CompositeSubscription();
-
     public WelcomePresenter(Context context) {
         super();
         mCategoryDataModel = CategoryDataModel.getInstance(context);
@@ -57,9 +54,5 @@ public class WelcomePresenter extends BasePresenter {
         // TODO: get most clicked category
         int index = mCategoryDataModel.getMostClickedCategoryIndex();
         return mCategoryList.get(index).imageUrl();
-    }
-
-    public void unbind() {
-        mSubscription.clear();
     }
 }
