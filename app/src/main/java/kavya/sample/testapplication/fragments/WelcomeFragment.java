@@ -5,6 +5,7 @@ import com.squareup.picasso.Picasso;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ public class WelcomeFragment extends Fragment {
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mPresenter = new WelcomePresenter();
+        mPresenter = new WelcomePresenter(getContext());
     }
 
     @Nullable
@@ -66,6 +67,12 @@ public class WelcomeFragment extends Fragment {
                    .error(R.mipmap.ic_launcher)
                    .into(mImageView);
         }
+    }
+
+    public void updateFragment() {
+        Log.e("Kavya", "First time user");
+        MyFragmentManager manager = new MyFragmentManager(getFragmentManager());
+        manager.goToFragment(WELCOME_FRAGMENT, CATEGORIES_FRAGMENT);
     }
 
     @Override

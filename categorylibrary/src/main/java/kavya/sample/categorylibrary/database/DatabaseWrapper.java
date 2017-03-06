@@ -1,6 +1,7 @@
 package kavya.sample.categorylibrary.database;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -34,9 +35,9 @@ public class DatabaseWrapper {
     }
 
     @NonNull
-    public static DatabaseWrapper getInstance(@NonNull DatabaseHelper databaseHelper) {
+    public static DatabaseWrapper getInstance(Context context) {
         if (mInstance == null) {
-            mInstance = new DatabaseWrapper(databaseHelper);
+            mInstance = new DatabaseWrapper(DatabaseHelper.getInstance(context));
         }
         return mInstance;
     }

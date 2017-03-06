@@ -1,5 +1,6 @@
 package kavya.sample.categorylibrary.model;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import java.util.Arrays;
@@ -39,9 +40,9 @@ public class CategoryDataModel implements ICategoryDataModel {
     }
 
     @NonNull
-    public static CategoryDataModel getInstance(@NonNull DatabaseWrapper databaseWrapper) {
+    public static CategoryDataModel getInstance(Context context) {
         if (mInstance == null) {
-            mInstance = new CategoryDataModel(databaseWrapper);
+            mInstance = new CategoryDataModel(DatabaseWrapper.getInstance(context));
         }
         return mInstance;
     }

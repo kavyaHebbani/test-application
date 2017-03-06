@@ -53,8 +53,10 @@ public class MyFragmentManager {
                 fragment = new CategoriesFragment();
                 break;
             case LISTING_FRAGMENT:
+                fragment = new ListingFragment();
                 break;
             case ITEM_DETAIL_FRAGMENT:
+                fragment = new ItemDetailFragment();
                 break;
             default:
                 break;

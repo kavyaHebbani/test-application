@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,25 +15,26 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import kavya.sample.testapplication.MainRecyclerViewAdapter;
+import kavya.sample.testapplication.ListingRecyclerViewAdapter;
 import kavya.sample.testapplication.R;
 import kavya.sample.testapplication.pojo.ImageItem;
-import kavya.sample.testapplication.presenters.CategoriesPresenter;
+import kavya.sample.testapplication.presenters.ListingPresenter;
 
 /**
  * Created by ksreeniv on 06/03/17.
  */
 
-public class CategoriesFragment extends Fragment {
+public class ListingFragment extends Fragment {
 
-    private MainRecyclerViewAdapter mAdapter;
+    ListingPresenter mPresenter;
 
-    CategoriesPresenter mPresenter;
+    private ListingRecyclerViewAdapter mAdapter;
 
     @Override
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = new CategoriesPresenter();
+
+        mPresenter = new ListingPresenter(getContext());
     }
 
     @Nullable
@@ -40,37 +42,22 @@ public class CategoriesFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater,
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.categories_fragment, container, false);
+        return inflater.inflate(R.layout.listing_fragment, container, false);
     }
 
     @Override
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mPresenter.bind(this);
         initializeRecyclerView((RecyclerView) view.findViewById(R.id.categories_recycler_view));
+        mPresenter.bind(this);
     }
 
     private void initializeRecyclerView(@NonNull RecyclerView recyclerView) {
-        mAdapter = new MainRecyclerViewAdapter(getContext(), getFragmentManager());
+        mAdapter = new ListingRecyclerViewAdapter(getContext(), getFragmentManager());
 
         Assert.assertNotNull(recyclerView);
-        GridLayoutManager manager = new GridLayoutManager(getContext(), 3);
-        if (false) {
-            manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                @Override
-                public int getSpanSize(final int position) {
-                    switch (position) {
-                        case 0:
-                            return 2;
-                        case 5:
-                            return 3;
-                        default:
-                            return 1;
-                    }
-                }
-            });
-        }
+        LinearLayoutManager manager = new GridLayoutManager(getContext(), 3);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(mAdapter);
     }
