@@ -36,8 +36,8 @@ public class MainRecyclerViewAdapter
         mContext = context;
     }
 
-    public void updateItems(List<ImageItem> item) {
-        mItems.addAll(item);
+    public void updateItems(List<ImageItem> items) {
+        mItems.addAll(items);
         notifyDataSetChanged();
     }
 
@@ -55,13 +55,12 @@ public class MainRecyclerViewAdapter
         if (mItems.size() == 0) {
             return;
         }
-        // TODO: update image
-//        Picasso.with(mContext)
-//               .load(url)
-//               .fit()
-//               .placeholder(R.mipmap.ic_launcher)
-//               .error(R.mipmap.ic_launcher)
-//               .into(holder.mImageView);
+        Picasso.with(mContext)
+               .load(mItems.get(position).imageUrl())
+               .fit()
+               .placeholder(R.mipmap.ic_launcher)
+               .error(R.mipmap.ic_launcher)
+               .into(holder.mImageView);
 
         holder.setClickListener(position);
     }

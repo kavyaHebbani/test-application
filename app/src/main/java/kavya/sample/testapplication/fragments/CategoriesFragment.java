@@ -17,6 +17,7 @@ import java.util.List;
 import kavya.sample.testapplication.MainRecyclerViewAdapter;
 import kavya.sample.testapplication.R;
 import kavya.sample.testapplication.pojo.ImageItem;
+import kavya.sample.testapplication.presenters.CategoriesPresenter;
 
 /**
  * Created by ksreeniv on 06/03/17.
@@ -26,9 +27,12 @@ public class CategoriesFragment extends Fragment {
 
     private MainRecyclerViewAdapter mAdapter;
 
+    CategoriesPresenter mPresenter;
+
     @Override
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter = new CategoriesPresenter();
     }
 
     @Nullable
@@ -43,6 +47,7 @@ public class CategoriesFragment extends Fragment {
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mPresenter.bind(this);
         initializeRecyclerView((RecyclerView) view.findViewById(R.id.categories_recycler_view));
     }
 
@@ -55,8 +60,14 @@ public class CategoriesFragment extends Fragment {
         recyclerView.setAdapter(mAdapter);
     }
 
-    // TODO: update images
     public void updateImages(@NonNull List<ImageItem> imageItems) {
         mAdapter.updateItems(imageItems);
+    }
+
+    @Override
+    public void onDestroyView() {
+        mPresenter.unbind();
+
+        super.onDestroyView();
     }
 }

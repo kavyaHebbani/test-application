@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import kavya.sample.testapplication.R;
+import kavya.sample.testapplication.presenters.WelcomePresenter;
 
 import static kavya.sample.testapplication.fragments.MyFragmentManager.CATEGORIES_FRAGMENT;
 import static kavya.sample.testapplication.fragments.MyFragmentManager.WELCOME_FRAGMENT;
@@ -24,8 +25,12 @@ public class WelcomeFragment extends Fragment {
 
     ImageView mImageView;
 
+    WelcomePresenter mPresenter;
+
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mPresenter = new WelcomePresenter();
     }
 
     @Nullable
@@ -47,6 +52,8 @@ public class WelcomeFragment extends Fragment {
         });
 
         mImageView = (ImageView) view.findViewById(R.id.welcome_image_view);
+
+        mPresenter.bind(this);
     }
 
     // TODO get image url
@@ -59,6 +66,13 @@ public class WelcomeFragment extends Fragment {
                    .error(R.mipmap.ic_launcher)
                    .into(mImageView);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        mPresenter.unbind();
+
+        super.onDestroyView();
     }
 
 }
