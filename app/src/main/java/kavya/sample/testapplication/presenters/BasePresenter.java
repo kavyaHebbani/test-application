@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+import kavya.sample.categorylibrary.model.ICategoryDataModel;
 import kavya.sample.testapplication.network.ApiService;
 import kavya.sample.testapplication.pojo.ImageItem;
 import kavya.sample.testapplication.utils.ISchedulerProvider;
@@ -24,11 +25,15 @@ public abstract class BasePresenter {
     ISchedulerProvider mSchedulerProvider;
 
     @NonNull
+    ICategoryDataModel mCategoryDataModel;
+
+    @NonNull
     CompositeSubscription mSubscription = new CompositeSubscription();
 
-    BasePresenter() {
+    BasePresenter(@NonNull ICategoryDataModel categoryDataModel) {
         mApiService = ApiService.getInstance();
         mSchedulerProvider = SchedulerProvider.getInstance();
+        mCategoryDataModel = categoryDataModel;
     }
 
     @NonNull

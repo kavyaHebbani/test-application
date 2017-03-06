@@ -2,7 +2,9 @@ package kavya.sample.categorylibrary.model;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.util.Pair;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -83,22 +85,35 @@ public class CategoryDataModel implements ICategoryDataModel {
     }
 
     @Override
-    public int getMostClickedCategoryIndex() {
-        String categoryName = getCategoryName(0);
-        int numOfClicks = 0;
-        for (Category category : mDatabaseWrapper.getCategories()) {
-            if (category.getNumberOfClicks() > numOfClicks) {
-                numOfClicks = category.getNumberOfClicks();
-                categoryName = category.getName();
+    public Pair<Integer, Integer> getMostClickedCategoryIndex() {
+        int firstIndex = -1;
+        int secondIndex = -1;
+        String firstName = mCategories.get(0);
+        String secondName = "";
+        int mostClicked = 0;
+
+        List<Category> categories = new ArrayList<>(mDatabaseWrapper.getCategories());
+        for (Category category : categories) {
+            if (category.getNumberOfClicks() > mostClicked) {
+                secondName = firstName;
+                mostClicked = category.getNumberOfClicks();
+                firstName = category.getName();
             }
         }
-        return mCategories.indexOf(categoryName);
+        if (!firstName.isEmpty()) {
+            firstIndex = mCategories.indexOf(firstName);
+        }
+        if (!secondName.isEmpty()) {
+            secondIndex = mCategories.indexOf(secondName);
+        }
+
+        return new Pair<>(firstIndex, secondIndex);
     }
 
     @Override
     public void categoryClicked(int index) {
         String name = getCategoryName(index);
-        int clicks = mDatabaseWrapper.getCategoryNumberOfClicks(index+1) + 1;
+        int clicks = mDatabaseWrapper.getCategoryNumberOfClicks(name) + 1;
         Category category = new Category(name, clicks);
         mDatabaseWrapper.saveCategory(category, true);
     }

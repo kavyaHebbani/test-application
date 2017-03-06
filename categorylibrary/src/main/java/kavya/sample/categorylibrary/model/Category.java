@@ -10,17 +10,18 @@ public class Category {
 
     private String mName;
 
-    private int mNumberOfClicks;
+
+    private int mWeight;
 
     public Category(String name, int numberOfClicks) {
         mName = name;
-        mNumberOfClicks = numberOfClicks;
+        mWeight = numberOfClicks;
     }
 
     public Category(int id, String name, int numberOfClicks) {
         _id = id;
         mName = name;
-        mNumberOfClicks = numberOfClicks;
+        mWeight = numberOfClicks;
     }
 
     public int getId() {
@@ -32,6 +33,6 @@ public class Category {
     }
 
     public int getNumberOfClicks() {
-        return mNumberOfClicks;
+        return mWeight;
     }
 }

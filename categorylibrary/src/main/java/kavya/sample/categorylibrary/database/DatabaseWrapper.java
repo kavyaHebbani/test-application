@@ -11,8 +11,8 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import kavya.sample.categorylibrary.model.Category;
 import kavya.sample.categorylibrary.database.DatabaseHelper.Columns;
+import kavya.sample.categorylibrary.model.Category;
 
 import static kavya.sample.categorylibrary.database.DatabaseHelper.Columns.CATEGORY_WEIGHT;
 import static kavya.sample.categorylibrary.database.DatabaseHelper.Columns.TABLE_NAME;
@@ -50,8 +50,7 @@ public class DatabaseWrapper {
         try {
             SQLiteDatabase db = getWriteableDB();
             if (update) {
-                db.update(TABLE_NAME, values, Columns._ID + " = ? ",
-                          new String[]{Integer.toString(category.getId())});
+                db.update(TABLE_NAME, values, null, null);
             } else {
                 db.insert(TABLE_NAME, null, values);
             }
@@ -61,15 +60,18 @@ public class DatabaseWrapper {
         }
     }
 
-    public int getCategoryNumberOfClicks(int index) {
+    public int getCategoryNumberOfClicks(String name) {
         int numOfClicks = 0;
         try {
             SQLiteDatabase db = getReadableDB();
-            String query = "Select * from " + TABLE_NAME + " where "
-                           + Columns._ID + " = " + index;
+            String query = "SELECT * FROM " + TABLE_NAME + " WHERE "
+                           + Columns.CATEGORY_NAME + " = '" + name + "'";
             try (Cursor cursor = db.rawQuery(query, null)) {
-                if (cursor.getCount() > 0) {
-                    numOfClicks = cursor.getInt(cursor.getColumnIndex(CATEGORY_WEIGHT));
+                if (cursor != null && cursor.getCount() != 0) {
+                    while (cursor.moveToNext()) {
+                        numOfClicks = cursor.getInt(cursor.getColumnIndex(CATEGORY_WEIGHT));
+                    }
+                    cursor.close();
                 }
                 cursor.close();
             }

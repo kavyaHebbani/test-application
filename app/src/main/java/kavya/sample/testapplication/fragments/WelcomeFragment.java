@@ -3,15 +3,16 @@ package kavya.sample.testapplication.fragments;
 import com.squareup.picasso.Picasso;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import kavya.sample.testapplication.MyApplication;
 import kavya.sample.testapplication.R;
 import kavya.sample.testapplication.presenters.WelcomePresenter;
 
@@ -31,7 +32,8 @@ public class WelcomeFragment extends Fragment {
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mPresenter = new WelcomePresenter(getContext());
+        MyApplication application = (MyApplication) getActivity().getApplication();
+        mPresenter = new WelcomePresenter(application.getCategoryDataModel());
     }
 
     @Nullable
@@ -45,6 +47,7 @@ public class WelcomeFragment extends Fragment {
     @Override
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mPresenter.bind(this);
 
         Button button = (Button) view.findViewById(R.id.welcome_button_text);
         button.setOnClickListener(v -> {
@@ -53,12 +56,18 @@ public class WelcomeFragment extends Fragment {
         });
 
         mImageView = (ImageView) view.findViewById(R.id.welcome_image_view);
-
-        mPresenter.bind(this);
     }
 
-    // TODO get image url
-    public void updateImage(String url) {
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (mPresenter.isNewUser()) {
+            updateFragment();
+        }
+    }
+
+    public void updateImage(@NonNull String url) {
         if (!url.isEmpty()) {
             Picasso.with(getContext())
                    .load(url)
@@ -70,7 +79,6 @@ public class WelcomeFragment extends Fragment {
     }
 
     public void updateFragment() {
-        Log.e("Kavya", "First time user");
         MyFragmentManager manager = new MyFragmentManager(getFragmentManager());
         manager.goToFragment(WELCOME_FRAGMENT, CATEGORIES_FRAGMENT);
     }
@@ -81,5 +89,4 @@ public class WelcomeFragment extends Fragment {
 
         super.onDestroyView();
     }
-
 }

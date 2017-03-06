@@ -3,8 +3,10 @@ package kavya.sample.testapplication.presenters;
 import junit.framework.Assert;
 
 import android.support.annotation.NonNull;
+import android.support.v4.util.Pair;
 import android.util.Log;
 
+import kavya.sample.categorylibrary.model.ICategoryDataModel;
 import kavya.sample.testapplication.fragments.CategoriesFragment;
 
 /**
@@ -13,8 +15,8 @@ import kavya.sample.testapplication.fragments.CategoriesFragment;
 
 public class CategoriesPresenter extends BasePresenter {
 
-    public CategoriesPresenter() {
-        super();
+    public CategoriesPresenter(ICategoryDataModel categoryDataModel) {
+        super(categoryDataModel);
     }
 
     public void bind(@NonNull CategoriesFragment fragment) {
@@ -27,4 +29,13 @@ public class CategoriesPresenter extends BasePresenter {
                                              err -> Log.e(getClass().getName(),
                                                           "Error updating Data:" + err)));
     }
+
+    public boolean isNewUser() {
+        return mCategoryDataModel.isFirstTimeUser();
+    }
+
+    public Pair<Integer, Integer> getMostClickedCategoryIndex() {
+        return mCategoryDataModel.getMostClickedCategoryIndex();
+    }
+
 }

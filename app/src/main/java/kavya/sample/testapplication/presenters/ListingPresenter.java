@@ -21,11 +21,8 @@ public class ListingPresenter extends BasePresenter {
 
     public static final String CATEGORY_POSITION = "category_position";
 
-    @NonNull
-    private ICategoryDataModel mCategoryDataModel;
-
-    public ListingPresenter(@NonNull Context context) {
-        mCategoryDataModel = CategoryDataModel.getInstance(context);
+    public ListingPresenter(@NonNull ICategoryDataModel categoryDataModel) {
+        super(categoryDataModel);
     }
 
     public void bind(@NonNull ListingFragment fragment) {

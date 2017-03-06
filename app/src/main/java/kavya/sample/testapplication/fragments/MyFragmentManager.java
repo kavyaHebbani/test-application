@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.view.View;
-import android.view.ViewGroup;
+
+import kavya.sample.testapplication.R;
 
 /**
  * Created by ksreeniv on 06/03/17.
@@ -26,21 +26,19 @@ public class MyFragmentManager {
     }
 
     public void goToFragment(@NonNull String from, @NonNull String to) {
-        goToFragment(from, to, null);
-    }
-
-    public void goToFragment(@NonNull String from, @NonNull String to, Bundle bundle) {
-        View containerView = mFragmentManager.findFragmentByTag(from).getView();
-        if (containerView != null) {
-            int containerId = ((ViewGroup) containerView.getParent()).getId();
-            showFragment(getFragment(to, bundle), containerId, to);
+        if (!from.equals(to)) {
+            goToFragmentWithExtra(to, null);
         }
     }
 
-    public void showFragment(@NonNull Fragment fragment, int containerId, @NonNull String tag) {
+    public void goToFragmentWithExtra(@NonNull String to, Bundle bundle) {
+        showFragment(getFragment(to, bundle), to);
+    }
+
+    private void showFragment(@NonNull Fragment to, @NonNull String tag) {
         mFragmentManager
                 .beginTransaction()
-                .replace(containerId, fragment, tag)
+                .replace(R.id.activity_main, to, tag)
                 .addToBackStack(tag)
                 .commit();
     }

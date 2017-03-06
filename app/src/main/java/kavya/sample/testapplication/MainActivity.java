@@ -14,11 +14,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        if (getSupportFragmentManager().findFragmentById(R.id.fragment_main) == null) {
-            MyFragmentManager manager = new MyFragmentManager(getSupportFragmentManager());
-            manager.showFragment(new WelcomeFragment(), R.id.fragment_main, WELCOME_FRAGMENT);
-        }
     }
 
     @Override

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import kavya.sample.testapplication.MainRecyclerViewAdapter;
+import kavya.sample.testapplication.MyApplication;
 import kavya.sample.testapplication.R;
 import kavya.sample.testapplication.pojo.ImageItem;
 import kavya.sample.testapplication.presenters.CategoriesPresenter;
@@ -32,7 +33,9 @@ public class CategoriesFragment extends Fragment {
     @Override
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = new CategoriesPresenter();
+
+        MyApplication application = (MyApplication) getActivity().getApplication();
+        mPresenter = new CategoriesPresenter(application.getCategoryDataModel());
     }
 
     @Nullable
@@ -56,20 +59,9 @@ public class CategoriesFragment extends Fragment {
 
         Assert.assertNotNull(recyclerView);
         GridLayoutManager manager = new GridLayoutManager(getContext(), 3);
-        if (false) {
-            manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                @Override
-                public int getSpanSize(final int position) {
-                    switch (position) {
-                        case 0:
-                            return 2;
-                        case 5:
-                            return 3;
-                        default:
-                            return 1;
-                    }
-                }
-            });
+
+        if (!mPresenter.isNewUser()) {
+            updateSpanCount(manager);
         }
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(mAdapter);
@@ -77,6 +69,23 @@ public class CategoriesFragment extends Fragment {
 
     public void updateImages(@NonNull List<ImageItem> imageItems) {
         mAdapter.updateItems(imageItems);
+        mAdapter.rearrangeItems(mPresenter.getMostClickedCategoryIndex());
+    }
+
+    private void updateSpanCount(GridLayoutManager manager) {
+        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(final int position) {
+                if (position == 0) {
+                    return 2;
+                }
+                if (position == 5) {
+                    return 1;
+                } else {
+                    return 1;
+                }
+            }
+        });
     }
 
     @Override

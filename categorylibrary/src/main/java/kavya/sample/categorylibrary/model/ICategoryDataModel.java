@@ -1,6 +1,7 @@
 package kavya.sample.categorylibrary.model;
 
 import android.support.annotation.NonNull;
+import android.support.v4.util.Pair;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface ICategoryDataModel {
     @NonNull
     String getCategoryName(int position);
 
-    int getMostClickedCategoryIndex();
+    Pair<Integer, Integer> getMostClickedCategoryIndex();
 
     void categoryClicked(int index);
 

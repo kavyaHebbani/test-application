@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import kavya.sample.testapplication.ListingRecyclerViewAdapter;
+import kavya.sample.testapplication.MyApplication;
 import kavya.sample.testapplication.R;
 import kavya.sample.testapplication.pojo.ImageItem;
 import kavya.sample.testapplication.presenters.ListingPresenter;
@@ -34,7 +35,8 @@ public class ListingFragment extends Fragment {
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mPresenter = new ListingPresenter(getContext());
+        MyApplication application = (MyApplication) getActivity().getApplication();
+        mPresenter = new ListingPresenter(application.getCategoryDataModel());
     }
 
     @Nullable

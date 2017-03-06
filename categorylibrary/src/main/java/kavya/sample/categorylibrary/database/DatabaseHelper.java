@@ -17,7 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static class Columns implements BaseColumns {
 
-        static final String TABLE_NAME = "MyTable";
+        static final String TABLE_NAME = "CategoryTable";
         static final String CATEGORY_NAME = "CategoryName";
         static final String CATEGORY_WEIGHT = "CategoryWeight";
     }
